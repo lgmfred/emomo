@@ -1,0 +1,12 @@
+{application,
+ emomo,
+ [{description, "MTN MoMo API client"},
+  {vsn, git},
+  {registered, []},
+  {mod, {emomo, []}},
+  {applications, [kernel, stdlib, crypto, public_key, hackney, jsx]},
+  {env, []},
+  {modules, []},
+  {licenses, ["Apache-2.0"]},
+  {links, [{"Github", "https://github.com/lgmfred/emomo"}]},
+  {build_tools, ["rebar3"]}]}.
