@@ -10,21 +10,16 @@ permissions:
   contents: read
       
 jobs:
+
   ci:
-    name: Run checks and tests over ${{matrix.otp_vsn}} and ${{matrix.os}}
-    runs-on: ${{matrix.os}}
-    strategy:
-      matrix:
-        otp_vsn: [23, 24, 25]
-        os: [ubuntu-latest]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          otp-version: ${{matrix.otp_vsn}}
-      
-      - name: Install rebar3
-        run: |
-          curl -LO https://s3.amazonaws.com/rebar3/rebar3
-          chmod +x rebar3
-          sudo mv rebar3 /usr/local/bin/
-      - run: rebar3 test
+    name: Run checks and tests over Erlang/OTP ${{matrix.otp}} / rebar3 ${{matrix.rebar3}}
+      strategy:
+        matrix:
+          otp: ['23.3', '24.3', '25.3']
+      steps:
+        - uses: actions/checkout@v3
+        - uses: erlef/setup-beam@v1
+          with:
+            otp-version: ${{matrix.otp}}
+            rebar3-version: '3.14'
+        - run: rebar3 test
