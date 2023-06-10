@@ -21,4 +21,10 @@ jobs:
       - uses: actions/checkout@v3
         with:
           otp-version: ${{matrix.otp_vsn}}
+      
+      - name: Install rebar3
+        run: |
+          curl -LO https://s3.amazonaws.com/rebar3/rebar3
+          chmod +x rebar3
+          sudo mv rebar3 /usr/local/bin/
       - run: rebar3 test
