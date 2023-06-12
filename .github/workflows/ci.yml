@@ -1,0 +1,24 @@
+name: Erlang CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image: erlang:24.3.4.12
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run checks and tests
+      run: rebar3 test
