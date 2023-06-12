@@ -8,18 +8,17 @@ on:
 
 permissions:
   contents: read
-      
+
 jobs:
-  ci:
+
+  build:
+
     runs-on: ubuntu-latest
-    name: Run checks and tests over Erlang/OTP ${{matrix.otp}}
-    strategy:
-      matrix:
-        otp: ['23.3', '24.3', '25.3']
+
+    container:
+      image: erlang:24.3.4.12
+
     steps:
-      - uses: actions/checkout@v3
-      - uses: erlef/setup-beam@v1
-        with:
-          otp-version: ${{matrix.otp}}
-          rebar3-version: '3.14'
-      - run: rebar3 test
+    - uses: actions/checkout@v3
+    - name: Run checks and tests
+      run: rebar3 test
